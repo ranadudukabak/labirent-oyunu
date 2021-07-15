@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prolab_2_proje_1;
 
 import java.awt.Graphics;
@@ -10,11 +5,6 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-/**
- *
- * @author ranadudukabak
- */
 
 /*
    Her bir altin 5 puan degerindedir. Ek olarak altin sayisini tutmak icin altin
@@ -26,26 +16,21 @@ import java.util.logging.Logger;
 
 public class Altin extends Thread {
 
-    
     //Degiskenler
     int altinSayisi;
     public static Thread createGold = null;
     public static Thread createMushroom = null;
     
     
-    
-    
-//    createGold = new Thread(this.CreateGold());
     //Constructorlar
     public Altin() {
-        
         
     }
     
     public Altin(int altinSayisi) {
         this.altinSayisi = altinSayisi;
     }
-    
+   
     
     //Methodlar
     public void ObjeAlindi() {//Oyuncunun skoruna 5 puan eklenecek.
@@ -73,8 +58,6 @@ public class Altin extends Thread {
     
     public static Runnable CreateGold() {
         while(true) {
-
-            
             try {
                 System.out.println("rana");
                 Thread.sleep(5);
@@ -82,7 +65,6 @@ public class Altin extends Thread {
             } catch (InterruptedException ex) {
                 Logger.getLogger(Altin.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
     }
     
@@ -97,10 +79,4 @@ public class Altin extends Thread {
         }
         
     }
-//    Altin.createGold = new Thread(Altin.CreateGold());
-//                Altin.createMushroom = new Thread(Altin.CreateMushroom());
-//                Altin.createGold.start();
-//                Altin.createMushroom.start(); 
-
-
 }
