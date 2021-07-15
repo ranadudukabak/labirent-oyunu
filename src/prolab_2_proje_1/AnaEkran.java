@@ -99,6 +99,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             iyikarakter = new Tembel_Sirin();
             iyikarakter.setName("tembelsirin");
         }
+        
         Lokasyon iyikarakterlocasyonu = new Lokasyon(6, 5);
         iyikarakter.setCurrentlocation(iyikarakterlocasyonu);
         iyix = iyikarakter.currentlocation.getX() * 50 + 200;
@@ -106,7 +107,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
 
         BufferedReader filein = null;
         try {
-
             filein = new BufferedReader(new FileReader("C:\\Users\\rana\\Desktop\\Prolab_2_Proje_1\\src\\prolab_2_proje_1\\harita.txt"));
             String row;
 
@@ -158,7 +158,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                 if (mazearray[i][j] == 0) {
 
                 }
-
             }
         }
         for (int i = 0; i < 11; i++) {
@@ -168,7 +167,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             }
             System.out.println("\n");
         }
-
     }
 
     private void kotukarakterler() {
@@ -201,7 +199,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
 
             }
         }
-
     }
 
     private Lokasyon kapi(String kapi) {
@@ -217,7 +214,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
         }
 
         return null;
-
     }
 
     //@Override
@@ -235,9 +231,12 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                 g.drawRect(j, i, dx, dy);
             }
         }
+        
         int c = 200;
         int d = 75;
+        
         g.setColor(Color.GRAY);
+        
         for (int a = 0; a < 11; a++) {
             c = 200;
             for (int b = 0; b < 13; b++) {
@@ -247,11 +246,10 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                 } else {
                     c = c + 50;
                 }
-
             }
             d = d + 50;
         }
-// sirine
+        // sirine
         g.drawImage(sirineImage, sirineX, sirineY, 50, 50, this);
         //iyi karakter
         if (iyikarakter.getName().equalsIgnoreCase("gozluklusirin")) {
@@ -272,12 +270,10 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             } else if (gecicikotukarakter.name.equalsIgnoreCase("azman")) {
                 g.drawImage(azmanImage, kotux, kotuy, 50, 50, this);
             }
-
         }
 
         if (Oyunbitti == true) {
             //KAZANDINIZ
-
             g.setColor(Color.BLACK);
             g.fillRect(300, 150, 450, 300);
             g.setColor(Color.WHITE);
@@ -291,7 +287,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
         g.setColor(Color.WHITE);
         g.setFont(new Font("TimesRoman", Font.BOLD, 20));
         g.drawString(iyikarakter.getName() + " in puanı : " + iyikarakter.getPuan(), 425, 675);
-//oyun kontrolu
+        //oyun kontrolu
         if (Oyunbitti == false) {
             if (iyikarakter.getPuan() <= 0) {
                 g.setColor(Color.BLACK);
@@ -302,7 +298,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             }
         }
 
-////ALTIN OBJESI
+        //ALTIN OBJESI
         Random random = new Random();
         if (Oyunbitti == false && iyikarakter.getPuan() > 0) {
             ArrayList<Integer> eklex = new ArrayList<Integer>();
@@ -351,7 +347,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             }
         }
 
-        ////MANTAR OBJESI
+        //MANTAR OBJESI
         if (Oyunbitti == false && iyikarakter.getPuan() > 0) {
             for (int ki = 0; ki < kotukarakter.size(); ki++) {
                 gecicikotukarakter = kotukarakter.get(ki);
@@ -391,7 +387,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             }
         }
 
-        //ENKISAYOL  
+        //EN KISA YOL  
         int kotux, kotuy;
         if (Oyunbitti == false) {
             for (int i = 0; i < kotukarakter.size(); i++) {
@@ -421,9 +417,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                         g.fillRect(pathx, pathy, 50, 50);
                     }
                 }
-
             }
-
         }
     }
 
@@ -554,7 +548,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                 }
             }
 
-//GOZLUKLU SIRIN SAG
+            //GOZLUKLU SIRIN SAG
             if (iyikarakter.getName().equalsIgnoreCase("gozluklusirin")) {
                 if (iyix >= 800) {
                     iyix = 800;
@@ -589,8 +583,8 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
             }
 
         } else if (c == KeyEvent.VK_DOWN) {
+            
             //TEMBEL SIRIN ASAGI
-
             if (iyikarakter.getName().equalsIgnoreCase("tembelsirin")) {
                 if (iyiy >= 575) {
                     iyiy = 575;
@@ -611,7 +605,6 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                         iyikarakter.currentlocation.setY(yeniy);
                     }
                 }
-
             }
 
             //GOZLUKLU SIRIN ASAGI
@@ -666,9 +659,7 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
 
                         iyikarakter.currentlocation.setY(yeniy);
                     }
-
                 }
-
             }
 
             //GOZLUKLU SIRIN YUKARI
@@ -702,11 +693,8 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
                         iyikarakter.currentlocation.setY(yeniy);
 
                     }
-
                 }
-
             }
-
         }
     }
 
@@ -772,7 +760,4 @@ public class AnaEkran extends JPanel implements ActionListener, KeyListener {
 
         return true;
     }
-
 }
-
-
