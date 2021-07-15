@@ -31,116 +31,101 @@ public void sethedefKarakter(Lokasyon iyikarakter) {
 				enKisaYolMatrisi[y][x]=geciciLokasyon;
 			}
 		}
-                
-
 	}
         
 
-        	private boolean nodeziyaretEdildi(Lokasyon temp) {
- 
-           
-		for(int i=0;i<this.ziyaretEdildi.size();i++) {
-             
-			if((ziyaretEdildi.get(i).getX()==temp.getX())&&(ziyaretEdildi.get(i).getY()==temp.getY())) {
+    private boolean nodeziyaretEdildi(Lokasyon temp) {
 
-				return true;
-			}
-		}
+        for (int i = 0; i < this.ziyaretEdildi.size(); i++) {
 
-		return false;
-	}
+            if ((ziyaretEdildi.get(i).getX() == temp.getX()) && (ziyaretEdildi.get(i).getY() == temp.getY())) {
 
-                private void ZiyaretEdilecekDugumuGuncelle(Lokasyon temp) {
+                return true;
+            }
+        }
 
-		boolean done=false;
+        return false;
+    }
 
-		for(int i=0;i<ziyaretEdilecekDugum.size();i++) {
-			if(temp.cost<ziyaretEdilecekDugum.get(i).cost) {
-				ziyaretEdilecekDugum.add(i, temp);
-				done=true;
-				break;
-			}
-		}
-		if(!done) {
-			ziyaretEdilecekDugum.add(temp);
-		}
+    private void ZiyaretEdilecekDugumuGuncelle(Lokasyon temp) {
 
-	}
-	public void EnKisaYol() {
+        boolean done = false;
 
-		int hedefKarakterx,hedefKaraktery;
-		hedefKarakterx=this.hedefKarakter.getX();
-		hedefKaraktery=this.hedefKarakter.getY();
+        for (int i = 0; i < ziyaretEdilecekDugum.size(); i++) {
+            if (temp.cost < ziyaretEdilecekDugum.get(i).cost) {
+                ziyaretEdilecekDugum.add(i, temp);
+                done = true;
+                break;
+            }
+        }
+        if (!done) {
+            ziyaretEdilecekDugum.add(temp);
+        }
 
+    }
 
-		int x,y;
-		Lokasyon visiting;
+    public void EnKisaYol() {
 
-		if(ziyaretEdilecekDugum.size()>0) {
-			visiting=ziyaretEdilecekDugum.get(0);
-			x=visiting.getX();
-			y=visiting.getY();
+        int hedefKarakterx, hedefKaraktery;
+        hedefKarakterx = this.hedefKarakter.getX();
+        hedefKaraktery = this.hedefKarakter.getY();
 
+        int x, y;
+        Lokasyon visiting;
 
-			if(hedefKarakterx==x&&hedefKaraktery==y) {
+        if (ziyaretEdilecekDugum.size() > 0) {
+            visiting = ziyaretEdilecekDugum.get(0);
+            x = visiting.getX();
+            y = visiting.getY();
 
-				this.enkisayol=(ArrayList<Lokasyon>) visiting.shortpath.clone();
+            if (hedefKarakterx == x && hedefKaraktery == y) {
 
-				visiting.shortpath.removeAll(enkisayol);
-				ziyaretEdilecekDugum.removeAll(ziyaretEdilecekDugum);
-				ziyaretEdildi.removeAll(ziyaretEdildi);
+                this.enkisayol = (ArrayList<Lokasyon>) visiting.shortpath.clone();
 
-				if(this.enkisayol.size()<=1) {
+                visiting.shortpath.removeAll(enkisayol);
+                ziyaretEdilecekDugum.removeAll(ziyaretEdilecekDugum);
+                ziyaretEdildi.removeAll(ziyaretEdildi);
 
-					//yakaladik onu
+                if (this.enkisayol.size() <= 1) {
 
-					this.currentlocation.setX(hedefKarakterx);
-					this.currentlocation.setY(hedefKaraktery);
+                    //yakaladik onu
+                    this.currentlocation.setX(hedefKarakterx);
+                    this.currentlocation.setY(hedefKaraktery);
 
-					//System.out.println("------------------>yakaladim seni");
+                    //System.out.println("------------------>yakaladim seni");
+                } else {
+                    this.currentlocation.setX(this.enkisayol.get(0).getX());
+                    this.currentlocation.setY(this.enkisayol.get(0).getY());
+                    this.enkisayol.remove(0);
 
-				}
-				else {
-					this.currentlocation.setX(this.enkisayol.get(0).getX());
-					this.currentlocation.setY(this.enkisayol.get(0).getY());
-					this.enkisayol.remove(0);
-					
-				}
+                }
 
+                return;
+            } else {
 
-				return;
-			}
+                ziyaretEdildi.add(visiting);
+                ziyaretEdilecekDugum.remove(0);
 
-			else {
+                //visit top 
+                if (y - 1 >= 0) {
+                    if (!nodeziyaretEdildi(enKisaYolMatrisi[y - 1][x])) {
 
-				ziyaretEdildi.add(visiting);
-				ziyaretEdilecekDugum.remove(0);
-                   
+                        Lokasyon geciciLokasyon = enKisaYolMatrisi[y - 1][x];
 
+                        if (geciciLokasyon.cost == 0 || (visiting.cost <= geciciLokasyon.cost + 1)) {
 
-				//visit top 
+                            geciciLokasyon.cost = visiting.cost + 1;
+                            geciciLokasyon.shortpath = (ArrayList<Lokasyon>) visiting.shortpath.clone();
+                            geciciLokasyon.shortpath.add(geciciLokasyon);
+                            ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
+                            //System.out.println("top ziyaretEdildi");	
 
-				if(y-1>=0) {
-					if(!nodeziyaretEdildi(enKisaYolMatrisi[y-1][x])) {                            
-                                            
-						Lokasyon geciciLokasyon=enKisaYolMatrisi[y-1][x];
-                                            
+                        }
+                    }
 
-						if(geciciLokasyon.cost==0||(visiting.cost<=geciciLokasyon.cost+1)) {
-						
-								geciciLokasyon.cost=visiting.cost+1;
-								geciciLokasyon.shortpath=(ArrayList<Lokasyon>) visiting.shortpath.clone();////////////
-								geciciLokasyon.shortpath.add(geciciLokasyon);		
-								ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
-								//System.out.println("top ziyaretEdildi");	
-							
+                }
 
-						}	
-					}
-
-				}
-
-  //visit right
+                //visit right
                 if (x + 1 <= 12) {
                     if (!nodeziyaretEdildi(enKisaYolMatrisi[y][x + 1])) {
                         Lokasyon geciciLokasyon = enKisaYolMatrisi[y][x + 1];
@@ -148,7 +133,7 @@ public void sethedefKarakter(Lokasyon iyikarakter) {
                         if (geciciLokasyon.cost == 0 || (visiting.cost <= geciciLokasyon.cost + 1)) {
 
                             geciciLokasyon.cost = visiting.cost + 1;
-                            geciciLokasyon.shortpath = (ArrayList<Lokasyon>) visiting.shortpath.clone();////////////
+                            geciciLokasyon.shortpath = (ArrayList<Lokasyon>) visiting.shortpath.clone();
                             geciciLokasyon.shortpath.add(geciciLokasyon);
                             ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
                             //System.out.println("right ziyaretEdildi");	
@@ -158,67 +143,61 @@ public void sethedefKarakter(Lokasyon iyikarakter) {
 
                 }
 
-				//visit bottom
+                //visit bottom
+                if (y + 1 <= 10) {
+                    if (!nodeziyaretEdildi(enKisaYolMatrisi[y + 1][x])) {
+                        Lokasyon geciciLokasyon = enKisaYolMatrisi[y + 1][x];
 
-				if(y+1<=10) {
-					if(!nodeziyaretEdildi(enKisaYolMatrisi[y+1][x])) {
-						Lokasyon geciciLokasyon=enKisaYolMatrisi[y+1][x];
+                        if (geciciLokasyon.cost == 0 || (visiting.cost <= geciciLokasyon.cost + 1)) {
 
-						if(geciciLokasyon.cost==0||(visiting.cost<=geciciLokasyon.cost+1)) {
-							
-								geciciLokasyon.cost=visiting.cost+1;
-								geciciLokasyon.shortpath=(ArrayList<Lokasyon>) visiting.shortpath.clone();////////////
-								geciciLokasyon.shortpath.add(geciciLokasyon);		
-								ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
-								//System.out.println("bottom ziyaretEdildi");	
-							
+                            geciciLokasyon.cost = visiting.cost + 1;
+                            geciciLokasyon.shortpath = (ArrayList<Lokasyon>) visiting.shortpath.clone();
+                            geciciLokasyon.shortpath.add(geciciLokasyon);
+                            ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
+                            //System.out.println("bottom ziyaretEdildi");	
 
-						}
-					}
+                        }
+                    }
 
-				}
+                }
 
-				//visit left
+                //visit left
+                if (x - 1 >= 0) {
+                    if (!nodeziyaretEdildi(enKisaYolMatrisi[y][x - 1])) {
 
+                        Lokasyon geciciLokasyon = enKisaYolMatrisi[y][x - 1];
 
-				if(x-1>=0) {
-					if(!nodeziyaretEdildi(enKisaYolMatrisi[y][x-1])) {
+                        if (geciciLokasyon.cost == 0 || (visiting.cost <= geciciLokasyon.cost + 1)) {
 
-						Lokasyon geciciLokasyon=enKisaYolMatrisi[y][x-1];
+                            geciciLokasyon.cost = visiting.cost + 1;
+                            geciciLokasyon.shortpath = (ArrayList<Lokasyon>) visiting.shortpath.clone();
+                            geciciLokasyon.shortpath.add(geciciLokasyon);
+                            ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
+                            //System.out.println("left ziyaretEdildi");	
 
-						if(geciciLokasyon.cost==0||(visiting.cost<=geciciLokasyon.cost+1)) {
-							
-								geciciLokasyon.cost=visiting.cost+1;
-								geciciLokasyon.shortpath=(ArrayList<Lokasyon>) visiting.shortpath.clone();////////////
-								geciciLokasyon.shortpath.add(geciciLokasyon);		
-								ZiyaretEdilecekDugumuGuncelle(geciciLokasyon);
-								//System.out.println("left ziyaretEdildi");	
-							
-						}
-					}
-				}
-				EnKisaYol();		
-			}
-		}
+                        }
+                    }
+                }
+                EnKisaYol();
+            }
         }
-                public void ZiyaretEdilecekDugumlerinListesi() {
-		System.out.println("\n-----------------visit next list");
-		for(int i=0;i<ziyaretEdilecekDugum.size();i++) {
-			System.out.println(ziyaretEdilecekDugum.get(i).getX()+"  "+ziyaretEdilecekDugum.get(i).getY());
-		}
-		System.out.println("\n-----------------");
-	}
-	public void kisayolugoster() {
-		for(int i=0;i<this.enkisayol.size();i++) {
-			System.out.println(enkisayol.get(i).getX()+"   "+enkisayol.get(i).getY());
-		}
-	}
-public void Ilerle() {//Dusman 2 birim ilerler.
+    }
+
+    public void ZiyaretEdilecekDugumlerinListesi() {
+        System.out.println("\n-----------------visit next list");
+        for (int i = 0; i < ziyaretEdilecekDugum.size(); i++) {
+            System.out.println(ziyaretEdilecekDugum.get(i).getX() + "  " + ziyaretEdilecekDugum.get(i).getY());
+        }
+        System.out.println("\n-----------------");
+    }
+
+    public void kisayolugoster() {
+        for (int i = 0; i < this.enkisayol.size(); i++) {
+            System.out.println(enkisayol.get(i).getX() + "   " + enkisayol.get(i).getY());
+        }
+    }
+    
+    public void Ilerle() {//Dusman 2 birim ilerler.
 
     }
 }
-        
-        
-    
-
-
