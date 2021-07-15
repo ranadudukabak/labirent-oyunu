@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prolab_2_proje_1;
 
 import java.awt.HeadlessException;
@@ -13,10 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 
-/**
- *
- * @author ranadudukabak
- */
 public class Prolab_2_Proje_1 extends JFrame {
 
     
@@ -29,12 +20,7 @@ public class Prolab_2_Proje_1 extends JFrame {
     public static ArrayList<String> arrayList2 = new ArrayList<String>();
 
     AnaEkran labirent;
-    /**
-     * @param args the command line arguments
-     */
-
     
-
     public Prolab_2_Proje_1() throws IOException {
         this.labirent = new AnaEkran();
         
@@ -62,17 +48,5 @@ public class Prolab_2_Proje_1 extends JFrame {
         ekran.add(labirent);
         
         ekran.setVisible(true);
-        
-
     }
 }
-
-
-
-
-
-
-
-
-    
-
